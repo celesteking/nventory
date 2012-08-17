@@ -1,0 +1,28 @@
+source :rubygems
+
+gem 'rails', '~> 2.3.14'
+
+gem 'RedCloth', '~> 4.2.9'
+gem 'ruby-net-ldap', '~> 0.0.4'
+gem 'ruport'
+
+#acts_as_reportable
+
+gem 'starling'
+gem 'fast_xs'
+gem 'fastercsv'
+gem 'facter'
+
+gem 'hpricot'
+
+#  mislav-will_paginate --source http://gems.github.com/ -v 2.3.2
+#
+gem 'mysql'
+gem 'ruby-graphviz'
+ 
+gem 'workling'
+
+group :development do
+	gem 'debugger'
+end
+
