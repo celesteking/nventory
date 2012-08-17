@@ -19,4 +19,4 @@
 <%= link_to('Delete', service_service_assignment_path(@service_service_assignment), :confirm => 'Are you sure?', :method => :delete) if allow_perm(@service_service_assignment, ['destroyer']) %>
 <%= render :partial => 'shared/version_information', :locals => { :object => @service_service_assignment} %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

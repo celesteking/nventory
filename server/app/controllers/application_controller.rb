@@ -23,14 +23,14 @@ class ApplicationController < ActionController::Base
   # Pick a unique cookie name to distinguish our session data from others'
   #session :key => '_nventory_session_id'
   #config.action_controller.session = { :key => '_nventory_session_id' }
-  
+
   before_filter :check_authentication, :except => [:login,:sso]
 
   ## replaced with rails_authorization_plugin
   # Don't log passwords
   filter_parameter_logging "password"
-  
-  def check_authentication 
+
+  def check_authentication
     # Always require web UI users to authenticate, so that they're
     # already authenticated if they want to make a change.  This
     # provides for a more seamless user experience.  XML users
@@ -72,8 +72,8 @@ class ApplicationController < ActionController::Base
                                :password_salt => '*')
             unless acct.save
               flash[:error] = "<strong>SSO Account Auto-Create Error(s):</strong> <br /> "
-              acct.errors.each do |attr,msg| 
-                logger.info "Error #{attr}: #{msg}" 
+              acct.errors.each do |attr,msg|
+                logger.info "Error #{attr}: #{msg}"
                 flash[:error] << "&nbsp;&nbsp* #{attr}: #{msg}"
               end
               acct= nil
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
 
           unless acct.authz
             result = AccountGroup.find_by_name("#{acct.login}.self")
-            if result 
+            if result
               acct.authz = result
               acct.save
             else
@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
             acct.authz.has_role('updater', acct) unless acct.authz.has_role?('updater',acct) || acct.nil?
           end # unless acct.authz
           session[:sso] = true
-        else 
+        else
           session[:sso] = false
         end
       end # if SSO_AUTH_URL
@@ -133,14 +133,19 @@ class ApplicationController < ActionController::Base
         next if assoc.name == :users
         next if assoc.name == :utilization_metrics
         next if assoc.options.has_key?(:polymorphic)
-        next if assoc.name.to_s =~ /_assignments?$/
+        case assoc.name.to_s
+	        when /node_rack_node_ass/
+		        :noop
+	        when /_assignments?$/
+	          next
+        end
 
         # Not sure yet if I want to handle second-level associations in a special way
         # It doesn't matter to the user for searching, but does potentionally matter
         # if they request an include.
         #if assoc.options.has_key?(:through) && assoc.options[:through].to_s !~ /_assignments$/
         #end
-        
+
         assoc.klass.content_columns.each do |column|
           # If it's the column that we let the user shortcut by just
           # specifying the association (leaving off the column name)
@@ -164,7 +169,7 @@ class ApplicationController < ActionController::Base
       format.xml { render :xml => fields_xml }
     end
   end
-  
+
   # We allow the user to request that data from associations be
   # included in the results.  This is really only useful for XML
   # users, as the HTML views will just ignore the extra data.
@@ -243,7 +248,7 @@ class ApplicationController < ActionController::Base
       elsif ENV['RAILS_ENV'] == 'development'
         if (@sso = sso_auth(:dev => true))
           @user ||= Account.find_by_login(@sso.login)
-        end 
+        end
       elsif (@sso = sso_auth(:redirect => false))
         @user ||= Account.find_by_login(@sso.login)
       else
@@ -288,19 +293,19 @@ class ApplicationController < ActionController::Base
       includes = process_includes(model, params[:include])
       @object = model.find(refid, :include => includes) if refid
       if xmljson
-        @xmlincludes = includes 
+        @xmlincludes = includes
       else
         @allow_edit = true if @auth.has_role?('editor', @object) || @auth.has_role?('admin', @object)
         @allow_delete = true if @auth.has_role?('destroyer', @object) || @auth.has_role?('admin', @object)
       end
     else
       refid ? (@object = model.find(refid)) : (@object = model)
-      if action == 'update' 
+      if action == 'update'
         return true if custom_auth_controllers.include?(controller)
         roles_users = filter_perms(@auth,@object,'updater',true,:return_roles_users)
         return if roles_users.nil?
         roles_users_attrs = roles_users.collect(&:attrs).flatten.compact
-        # if a roles_user obj has no attrs specified, by default allows update to ALL attributes. 
+        # if a roles_user obj has no attrs specified, by default allows update to ALL attributes.
         # however, if an attr is specified, the restriction is to ONLY ALLOW update to that attribute.
         if roles_users_attrs && !roles_users_attrs.empty?
           params[controller.singularize] ? (requested_attrs = params[controller.singularize]) : (requested_attrs = [])
@@ -341,18 +346,22 @@ class ApplicationController < ActionController::Base
   def filter_perms(user,obj,perms,willrender=true,*others)
     roles_users_flag = false
     found_roles_users = []
+    perms = [perms].flatten
+
     # var to return the roles_users instead of just true
     return_roles_users = true if  others.include?(:return_roles_users)
 
+
     # shortcut to detect if user's account_group and any of its inherited parent_groups have admin privilege
     # first see if user account already has the right perms before looking at inheritance
-    if ( user.has_role?('admin',obj) ) 
+    if ( user.has_role?('admin',obj) )
       return true unless return_roles_users
       roles = obj.allowed_roles.select{|a| a.name == 'admin'}
       roles.each{|role| role.roles_users.each{|roles_user| found_roles_users << roles_user if roles_user.account_group == user  } }
       roles_users_flag = true
     end
-    perms.each do |perm| 
+
+    perms.each do |perm|
       next if perm == 'admin' # we've already processed this one
       if user.has_role?(perm,obj)
         return true  unless return_roles_users
@@ -370,8 +379,8 @@ class ApplicationController < ActionController::Base
       ngs = obj.all_parent_groups
       inherited_roles = []
       ngs.each do |ng|
-        ng.accepted_roles.each do |ar| 
-          ar.roles_users.each do |ru| 
+        ng.accepted_roles.each do |ar|
+          ar.roles_users.each do |ru|
             if ru.account_group.name !~ /\.self$/
               if ru.account_group.all_self_groups.include?(user)
                 inherited_roles << ar unless inherited_roles.include?(ar)
@@ -381,7 +390,7 @@ class ApplicationController < ActionController::Base
         end # ng.accepted_roles.each do |ar|
       end # ngs.each do |ng|
     end # if obj.kind_of?(Node) || obj.kind_of?(NodeGroup)
-   
+
     perms.each do |perm|
       # inherit auth from account_groups
       all_parent_roles.each_pair do |role, parent_group|
@@ -406,14 +415,14 @@ class ApplicationController < ActionController::Base
 
       if obj.kind_of?(Node) || obj.kind_of?(NodeGroup)
         # inherit auth from node_group parents
-        ngs.each do |ng| 
-          if user.has_role?('admin',ng) 
+        ngs.each do |ng|
+          if user.has_role?('admin',ng)
             return true unless return_roles_users
             roles = obj.allowed_roles.select{|a| a.name == 'admin'}
             roles.each{|role| role.roles_users.each{|roles_user| found_roles_users << roles_user if roles_user.account_group == ng} }
             roles_users_flag = true
           end
-          if user.has_role?(perm,ng) 
+          if user.has_role?(perm,ng)
             return true unless return_roles_users
             roles = obj.allowed_roles.select{|a| a.name == perm}
             roles.each{|role| role.roles_users.each{|roles_user| found_roles_users << roles_user if roles_user.account_group == user  } }
@@ -437,7 +446,7 @@ class ApplicationController < ActionController::Base
 
     obj.kind_of?(Class) ? label = Class.to_s : label = "#{obj.class.to_s} Object"
 
-    replace_html_msg = "<font color=red><strong>#{$denied} on #{label} as #{perms.kind_of?(Array) ? perms.join(',') : perms }</strong></font>" 
+    replace_html_msg = "<font color=red><strong>#{$denied} on #{label} as #{perms.kind_of?(Array) ? perms.join(',') : perms }</strong></font>"
     respond_to do |format|
       format.html { flash[:error] = $denied and redirect_to(:action => :index) and return }
       format.js { render :update do |page| page.replace_html(params[:div],replace_html_msg ) end if params[:div] }
@@ -446,7 +455,7 @@ class ApplicationController < ActionController::Base
   end
 
   def list_models
-    %w( Node NodeGroup Account AccountGroup Comment DatabaseInstance Datacenter Drive HardwareProfile IpAddress LbPool LbProfile NameAlias NetworkInterface NetworkPort 
+    %w( Node NodeGroup Account AccountGroup Comment DatabaseInstance Datacenter Drive HardwareProfile IpAddress LbPool LbProfile NameAlias NetworkInterface NetworkPort
         NodeRack OperatingSystem Outlet Service ServiceProfile Status StorageController Subnet ToolTip Vip Volume Tag Graffiti SupportContract HardwareLifecycle )
   end
 
@@ -513,7 +522,7 @@ class ApplicationController < ActionController::Base
       @object.accepts_no_role role_name, useracc
       objects = @object.allowed_roles
       parentperms = build_parentperms(@object)
-  
+
       respond_to do |format|
         format.js {
           render(:update) { |page|
@@ -532,13 +541,13 @@ class ApplicationController < ActionController::Base
     attrs = params[controller]['attrs'].compact.reject(&:blank?)
     if params[controller][:refid] && !params[controller][:refid].empty?
       refid = params[controller][:refid]
-      @object = model.find(refid) 
+      @object = model.find(refid)
     else
       @object = model
     end
     if filter_perms(@auth,@object, ['admin'])
       unless userids.empty?
-        useraccs = AccountGroup.find(userids) 
+        useraccs = AccountGroup.find(userids)
         useraccs.each{ |useracc| @object.accepts_role params[controller][:role], useracc, attrs }
       end
     end

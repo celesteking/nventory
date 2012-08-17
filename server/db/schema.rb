@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101014233527) do
+ActiveRecord::Schema.define(:version => 20120808132818) do
 
   create_table "account_group_account_group_assignments", :force => true do |t|
     t.integer  "parent_id",   :null => false
@@ -180,6 +180,23 @@ ActiveRecord::Schema.define(:version => 20101014233527) do
     t.string   "product"
     t.integer  "size",                  :limit => 8
     t.string   "dev"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "graffitis", :force => true do |t|
+    t.string   "name",              :default => ""
+    t.string   "value",             :default => ""
+    t.string   "graffitiable_type", :default => ""
+    t.integer  "graffitiable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "hardware_lifecycles", :force => true do |t|
+    t.integer  "node_id"
+    t.datetime "ship_date"
+    t.datetime "out_of_service_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -386,10 +403,10 @@ ActiveRecord::Schema.define(:version => 20101014233527) do
   create_table "node_rack_node_assignments", :force => true do |t|
     t.integer  "node_rack_id"
     t.integer  "node_id"
-    t.integer  "position"
     t.datetime "assigned_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "upos"
   end
 
   add_index "node_rack_node_assignments", ["assigned_at"], :name => "index_rack_node_assignments_on_assigned_at"
@@ -410,6 +427,12 @@ ActiveRecord::Schema.define(:version => 20101014233527) do
   add_index "node_racks", ["deleted_at"], :name => "index_racks_on_deleted_at"
   add_index "node_racks", ["id"], :name => "index_racks_on_id"
   add_index "node_racks", ["name"], :name => "index_racks_on_name"
+
+  create_table "node_support_contract_assignments", :force => true do |t|
+    t.integer  "node_id",             :null => false
+    t.integer  "support_contract_id", :null => false
+    t.datetime "assigned_at"
+  end
 
   create_table "nodes", :force => true do |t|
     t.string   "name"
@@ -627,6 +650,15 @@ ActiveRecord::Schema.define(:version => 20101014233527) do
   add_index "subnets", ["network"], :name => "index_subnets_on_network", :unique => true
   add_index "subnets", ["node_group_id"], :name => "index_subnets_on_node_group_id"
 
+  create_table "support_contracts", :force => true do |t|
+    t.string   "name",          :null => false
+    t.string   "service_level"
+    t.datetime "expiration"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "link"
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -746,7 +778,7 @@ ActiveRecord::Schema.define(:version => 20101014233527) do
 
   add_index "vips", ["ip_address"], :name => "index_vips_on_ip_address"
   add_index "vips", ["load_balancer_id"], :name => "index_vips_on_load_balancer_id"
-  add_index "vips", ["name"], :name => "index_vips_on_name", :unique => true
+  add_index "vips", ["name"], :name => "index_vips_on_name"
   add_index "vips", ["port"], :name => "index_vips_on_port"
   add_index "vips", ["protocol"], :name => "index_vips_on_protocol"
 

@@ -6,4 +6,4 @@
   <td><%= index_row.storage_controller.name if index_row.storage_controller  %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -12,6 +12,8 @@ class NetworkInterface < ActiveRecord::Base
   has_many :ip_addresses, :dependent => :destroy
   # This creates a polymorphic association to Outlet model which can be shared by other interface types such as power or console
   has_one :switch_port, :class_name => "Outlet", :as => :consumer, :dependent => :destroy
+  # alias for :switch_port
+  has_one :outlet, :as => :consumer
 
   # These constraints are duplicates of constraints imposed at the
   # database layer (see the relevant migration file for details).

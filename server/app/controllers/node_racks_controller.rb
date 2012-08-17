@@ -1,4 +1,7 @@
 class NodeRacksController < ApplicationController
+
+	in_place_edit_for :node_rack_node_assignment, :upos
+
   # sets the @auth object and @object
   before_filter :get_obj_auth
   before_filter :modelperms

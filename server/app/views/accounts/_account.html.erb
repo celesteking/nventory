@@ -4,4 +4,4 @@
 <p><strong><%= tooltip(Account,:login)%>:</strong> <em>*</em><br /><%= f.text_field :login %></p>
 <p><strong><%= tooltip(Account,:password)%>:</strong> <em>*</em><br /><%= f.password_field :password %></p>
 <p><strong>Password Confirmation:</strong> <em>*</em> <br /><%= f.password_field :password_confirmation %></p>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

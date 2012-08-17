@@ -9,4 +9,4 @@
 <%= render :partial => objects.first.class.to_s.tableize + '/index_row', :collection => objects %>
 </tbody>
 </table>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -75,4 +75,4 @@
 <%- if !Datacenter.find(:first) && !NodeRack.find(:first) && !Node.find(:first) -%>
   <p><%= link_to "Setup Sample Data", { :action => "setup_sample_data" } %></p>
 <%- end -%>
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

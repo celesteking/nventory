@@ -25,4 +25,4 @@
 </table>
 <%= will_paginate objects, :renderer => 'RemoteLinkRenderer', :params => { :mode => params[:mode] } %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

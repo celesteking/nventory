@@ -1,0 +1,9 @@
+- if consumer.class == NetworkInterface
+  - link_to(consumer, :class => 'hidden_edit outlet_link') do
+    %span.consumer_node #{consumer.node.name}
+    [
+    %span.consumer_name #{consumer.name}
+    ]
+- else
+  - link_to(consumer, :class => 'hidden_edit outlet_link') do
+    %span.consumer_node #{consumer.name}

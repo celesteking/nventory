@@ -9,4 +9,4 @@
   <%= hidden_field(:name_alias, :source_type, :value => @model) %>
 <%- end -%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

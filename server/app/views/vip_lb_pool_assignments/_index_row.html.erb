@@ -9,4 +9,4 @@
   <td><%= link_to index_row.assigned_at.to_formatted_s(:long), vip_lb_pool_assignment_path(index_row) %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

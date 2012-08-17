@@ -43,4 +43,4 @@
   <p>This Load Balance Pool is not assigned to any <%= tooltip(VipLbPoolAssignment,:vip,'VIPs') %>.</p>
 <%- end -%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

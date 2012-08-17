@@ -5,4 +5,4 @@
 <p><strong><%= tooltip(Graffiti,:graffitiable_type) %></strong> <em>*</em>  <br />  <%= f.text_field :graffitiable_type %></p>
 <p><strong>Graffitiable Id</strong>  <em>*</em> <br />  <%= f.text_field :graffitiable_id %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

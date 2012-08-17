@@ -8,4 +8,4 @@
 <p><strong><%= tooltip(IpAddressNetworkPortAssignment,:nmap_first_seen_at) %>:</strong> <br/><%= f.datetime_select :nmap_first_seen_at%><br/>
 <strong><%= tooltip(IpAddressNetworkPortAssignment,:nmap_last_seen_at) %>:</strong> <br/><%= f.datetime_select :nmap_last_seen_at %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

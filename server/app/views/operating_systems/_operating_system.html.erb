@@ -6,4 +6,4 @@
 <p><strong><%= tooltip(OperatingSystem,:architecture) %>:</strong> <br /> <%= f.text_field :architecture %> </p>
 <p><strong><%= tooltip(OperatingSystem,:description) %>:</strong> <br /><%= f.text_area :description, {"cols" => 60, "rows" => 4} %> </p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

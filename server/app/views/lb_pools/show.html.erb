@@ -60,4 +60,4 @@
 <%= javascript_tag "Element.hide('create_node_assignment')" %>
 <%= javascript_tag "_lb_pool_id = "+@lb_pool.id.to_s %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

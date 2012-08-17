@@ -3,4 +3,4 @@
 <p><strong><%= tooltip(NodeDatabaseInstanceAssignment,:database_instance) %>:</strong> <br /><%= f.select :database_instance_id, DatabaseInstance.find(:all, :order => 'name').collect { |d| [ d.name, d.id ] }, { :include_blank => true } %></p>
 <p><strong><%= tooltip(NodeDatabaseInstanceAssignment,:assigned_at) %>:</strong> <br/><%= f.datetime_select :assigned_at %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -4,4 +4,4 @@
 <p><strong>Node:</strong> <br /><%= f.select :node_id, Node.find(:all, :order => 'name').collect { |n| [ n.name, n.id ] }, { :include_blank => true } %></p>
 
 <p><strong>Value:</strong> <br /><%= f.text_field :value %></p>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

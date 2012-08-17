@@ -44,22 +44,21 @@ class OutletsController < ApplicationController
   end
 
   # GET /outlets/1/edit
+  # FIXME: rewrite edit_outlet to be caller-agnostic.
   def edit
     @outlet = @object
-    if params[:consumer_type] == "NetworkInterface"
-      results = params[:consumer_type].constantize.find(:all, :select => 'id,name',
-                                                        :joins => {:node => {}}, 
-                                                        :conditions => ["nodes.name is not ? and interface_type = ? and network_interfaces.name not like ?",nil,"Ethernet",'lo%'],
-                                                        :order => 'nodes.name' )
-      @consumer_type = params[:consumer_type]
-      @consumers = results.collect { |consumer| [ "#{consumer.node.name}:#{consumer.name}", consumer.id ] }
-    else
-      except=params[:refobj].constantize.find(params[:refid]) if (params[:refobj] && params[:refid])
-      @consumers = Node.find(:all, :select => 'name,id', :order => 'name', :conditions => ['id != ?',except]).collect { |n| [ n.name, n.id ] }
-    end
+    outlet_type = @outlet.producer.hardware_profile.outlet_type
+    @consumer_type = Outlet.consumer_types[outlet_type]
+
+    @consumers = search_consumers(outlet_type)
+    @consumers.reject! {|name, id| id == @outlet.producer.id}
+
     respond_to do |format|
-      format.html # show.html.erb
-      format.js  { render :action => 'inline_consumer_edit', :layout => false }
+      format.html
+      format.js do
+	      render :partial => 'inline_consumer_edit',
+	             :locals => { :outlet => @outlet, :consumers => @consumers, :consumer_type => @consumer_type }
+      end
     end
   end
 
@@ -112,7 +111,7 @@ class OutletsController < ApplicationController
         format.html { redirect_to outlet_url(@outlet) }
         format.js { 
           render(:update) { |page| 
-            page.replace_html dom_id(@outlet), :partial => 'consumer', :locals => { :outlet => @outlet }
+            page.replace_html dom_id(@outlet), :partial => 'consumer', :locals => { :outlet => @outlet, :consumer => @outlet.consumer }
           }
         }
         format.xml  { head :ok }
@@ -149,10 +148,9 @@ class OutletsController < ApplicationController
     render :action => "version_table", :layout => false
   end
   
-  # GET /outlets/1/version_history
   def consumer
-    @outlet = Outlet.find(params[:id])
-    render :action => '_consumer', :layout => false
+    outlet = Outlet.find(params[:id])
+    render :partial => 'consumer', :locals => {:consumer => outlet.consumer}
   end
   
   # GET /outlets/field_names
@@ -167,22 +165,34 @@ class OutletsController < ApplicationController
   end
 
   def get_producer_consumer
-    # outlet_type = request.raw_post
-    outlet_type = request.raw_post.gsub(/&_=/,'')
+    outlet_type = params['outlet_type']
     # param for :producer_id
-    @producers = Node.find( :all, :joins => {:hardware_profile => {}}, :order => 'nodes.name',
+    @producers = Node.find( :all, :joins => :hardware_profile, :order => 'nodes.name',
                             :conditions => ["hardware_profiles.outlet_type = ?", outlet_type]).collect { |node| [node.name, node.id] }
+
     # param for :consumer_id
-    if outlet_type == 'Network'
-      @consumers = NetworkInterface.find( :all, :conditions => "network_interfaces.name not like 'lo%'", :order => 'nodes.name',
-                                          :joins => {:node => {}}).collect { |nic| [ "#{nic.node.name} [ #{nic.name} ]", nic.id ] }
-    else
-      @consumers = Node.find(:all, :select => "id,name", :order => 'name').collect { |node| [ node.name, node.id ] }
-    end
+    @consumers = search_consumers(outlet_type)
+
     # param for :consumer_type
     outlet_type == "Network" ? @consumer_type = 'NetworkInterface' : @consumer_type = 'Node'
 
     render :partial => 'get_producer_consumer'
+  end
+
+	private
+	def search_consumers(type)
+		if type == 'Network'
+			consumers = NetworkInterface.find(:all, :order => 'nodes.name',
+          :joins => 'JOIN `nodes` ON (`network_interfaces`.node_id =  `nodes`.id) LEFT JOIN `outlets` ON (`outlets`.consumer_id =  `network_interfaces`.id AND outlets.consumer_type = "NetworkInterface")',
+          :conditions => 'outlets.id IS NULL AND nodes.name IS NOT NULL AND network_interfaces.name NOT LIKE "lo%"',
+			).collect { |nic| [ "#{nic.node.name} [ #{nic.name} ]", nic.id ] }
+		else
+     consumers = Node.find(:all, :order => 'nodes.name',
+          :joins => 'LEFT JOIN `outlets` ON (`outlets`.consumer_id =  `nodes`.id AND outlets.consumer_type = "Node")',
+          :conditions => 'outlets.id IS NULL',
+     ).collect { |node| [ node.name, node.id ] }
+		end
+		consumers
   end
 
 end

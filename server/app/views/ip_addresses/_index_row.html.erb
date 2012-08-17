@@ -9,4 +9,4 @@
   <td><%= (index_row.network_interface.node.nil? ? '&nbsp;' : link_to(index_row.network_interface.node.name, node_path(index_row.network_interface.node))) unless index_row.network_interface.nil? %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -18,10 +18,11 @@
 </div>
 
 <%= observe_field("outlet_type",
-        :frequency => 2,
         :update => :producer_consumer,
         :before => "Element.show('spinner_gif_id')",
         :success => "Element.hide('spinner_gif_id')",
-        :url => { :action => :get_producer_consumer } ) %>
+        :url => { :action => :get_producer_consumer },
+        :with => 'outlet_type')
+-%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

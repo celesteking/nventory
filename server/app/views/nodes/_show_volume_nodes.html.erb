@@ -2,4 +2,4 @@
 <%= tooltip(VolumeNodeAssignment,:node) %>:
   <%= select_tag :volume_server_id, options_for_select(@nodes) %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

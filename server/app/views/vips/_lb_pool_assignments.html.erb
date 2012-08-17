@@ -35,4 +35,4 @@
   <p>No <%= tooltip(Vip,:lb_pools,'Load Balance Pool') %> assigned to this VIP.</p>
 <%- end -%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

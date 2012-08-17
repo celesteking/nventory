@@ -2,4 +2,4 @@
   <%- list = [] %>
   <%- tags.each{ |tag| list << link_to(tag.name,tag) } -%>
   <p><strong><%= tooltip(NodeGroup, :tag_list,'Tags') %>: </strong><font size=1><%= list.join(', ') %></font><br /></p>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

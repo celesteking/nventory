@@ -4,4 +4,4 @@
 
 <p><strong><%= tooltip(DatabaseInstanceRelationship,:to,'To Database') %>:</strong> <em>*</em> <br /><%= f.select :to_id, DatabaseInstance.find(:all, :order => 'name').collect { |n| [ n.name, n.id ] }, { :include_blank => true } %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

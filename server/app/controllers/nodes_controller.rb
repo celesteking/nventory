@@ -1037,7 +1037,7 @@ class NodesController < ApplicationController
     image_type = MyConfig.visualization.images.mtype
     @node = Node.find(params[:id])
     @graphobjs = {}
-    @graph = GraphViz::new( "G", "output" => "png" )
+    @graph = GraphViz::new( "G")
     @dots = {}
     @all_node_groups = @node.node_groups
     @real_node_groups = @node.real_node_groups
@@ -1055,7 +1055,7 @@ class NodesController < ApplicationController
         @graph.add_edge( @graphobjs[parent],@graphobjs[child] )
       end
     end
-    @graph.output( :output => image_type,:file => "public/#{MyConfig.visualization.images.dir}/#{@node.name}_nodegroups.#{image_type}" )
+    @graph.output( image_type => "public/#{MyConfig.visualization.images.dir}/#{@node.name}_nodegroups.#{image_type}" )
     respond_to do |format|
       format.html # graph_node_groups.html.erb
     end
@@ -1250,12 +1250,10 @@ class NodesController < ApplicationController
     render :partial => 'show_volume_nodes'
   end
 
+  # Show network interfaces
   def get_nics
-    if params[:id] && params[:partial]
-      @node = Node.find(params[:id])
-      render :partial => params[:partial], :locals => { :node => @node }
-    else
-      render :text => ''
+    if node = Node.find(params[:id])
+      render :partial => 'network_interfaces_content', :locals => { :node => node }
     end
   end
 

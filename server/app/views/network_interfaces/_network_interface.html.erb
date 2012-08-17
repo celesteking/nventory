@@ -20,4 +20,4 @@
 <p><strong><%= tooltip(NetworkInterface,:autonegotiate) %></strong> <br /> <%= f.check_box :autonegotiate %></p>
 
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

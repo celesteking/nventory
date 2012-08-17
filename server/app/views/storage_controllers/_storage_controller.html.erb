@@ -13,4 +13,4 @@
 <p><strong><%= tooltip(StorageController,:cache_size) %></strong> <br /> <%= f.text_field :cache_size%></p>
 <p><strong><%= tooltip(StorageController,:batteries) %></strong> <br /> <%= f.text_field :batteries%></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

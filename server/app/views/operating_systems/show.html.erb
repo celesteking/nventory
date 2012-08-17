@@ -20,4 +20,4 @@
 
 <div class="relationship"><p><%= link_to 'Search', "#{nodes_path}?exact_operating_system=#{CGI.escape(@operating_system.name)}" %> for nodes with this operating system</p></div>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

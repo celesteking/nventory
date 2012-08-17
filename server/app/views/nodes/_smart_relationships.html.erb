@@ -4,10 +4,13 @@
   <ul>
     <%- i = 0 -%>
     <%- @node.number_of_physical_nics.times do -%>
+      <% outlet = @node.consumed_network_outlets.at(i) %>
       <li>
         <%= '#' + i.to_s + ': ' %> 
-        <%- if !@node.consumed_network_outlets.at(i).nil? -%>
-          <%= link_to(@node.consumed_network_outlets.at(i).producer.name, node_path(@node.consumed_network_outlets.at(i).producer)) %>
+        <%- unless outlet.nil? -%>
+          <%= link_to(outlet.producer.name, node_path(outlet.producer)) %>
+          <span> - </span>
+          <%= link_to "port: #{outlet.name}", outlet %>
         <%- else -%>
           <%= 'n/a' %>
         <%- end -%> 
@@ -26,8 +29,10 @@
       <%- @node.number_of_power_supplies.times do -%>
         <li>
           <%= '#' + i.to_s + ': ' %>
-          <%- if !@node.consumed_power_outlets.at(i).nil? -%> 
+          <%- unless @node.consumed_power_outlets.at(i).nil? -%>
             <%= link_to(@node.consumed_power_outlets.at(i).producer.name, node_path(@node.consumed_power_outlets.at(i).producer)) %>
+            <span> - </span>
+            <%= link_to('socket ' + @node.consumed_power_outlets.at(i).name, outlet_path(@node.consumed_power_outlets.at(i))) %>
           <%- else -%>
             <%= 'n/a' %>
           <%- end -%>
@@ -46,7 +51,7 @@
 <%- 1.times do -%>
   <li>
     <%= '#' + i.to_s + ': ' %> 
-    <%- if !@node.consumed_console_outlets.at(i).nil? %>
+    <%- unless @node.consumed_console_outlets.at(i).nil? %>
       <%= link_to(@node.consumed_console_outlets.at(i).producer.name, node_path(@node.consumed_console_outlets.at(i).producer)) %>
     <%- else -%>
       <%= 'n/a' %>
@@ -56,4 +61,4 @@
 <%- end -%>
 </ul>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

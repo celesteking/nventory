@@ -19,4 +19,4 @@
 <%= link_to('Delete', datacenter_node_rack_assignment_path(@datacenter_node_rack_assignment), :confirm => 'Are you sure?', :method => :delete) if allow_perm(@datacenter_node_rack_assignment, ['destroyer']) %>
 <%= render :partial => 'shared/version_information', :locals => { :object => @datacenter_node_rack_assignment} %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

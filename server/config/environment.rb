@@ -5,7 +5,7 @@
 # ENV['RAILS_ENV'] ||= 'production'
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.14' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -80,8 +80,10 @@ Rails::Initializer.run do |config|
     # Using wonsys configuration_manager plugin for config management
     MyConfig = ConfigurationManager.new_manager
   end
+
   #require 'ruport/acts_as_reportable'
   config.gem 'is_graffitiable'
+  config.gem 'haml'
 end
 
 # Add new inflection rules using the following format 
@@ -188,4 +190,3 @@ require 'model_extensions'
 ActiveRecord::Base.send(:extend, ModelExtensions)
 
 require 'graffiti_extensions'
-

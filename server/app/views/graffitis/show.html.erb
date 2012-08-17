@@ -13,4 +13,4 @@
 <%= link_to @graffiti.graffitiable.name, self.send(@graffiti.graffitiable_type.underscore + '_path', @graffiti.graffitiable) %>
 </p>
 </div>
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

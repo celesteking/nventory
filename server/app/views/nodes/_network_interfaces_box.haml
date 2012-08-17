@@ -1,0 +1,25 @@
+- unless @tooltips ; then @tooltips = []; ttflag = true ; else; ttflag = false ;  end
+- el = 'network_interfaces'
+.relationship
+  %h2
+    = tooltip(node.class,:network_interfaces).to_s
+  = render_loading_spinner('nics')
+  #network_interfaces
+    %p.lazyload_placeholder
+    :javascript
+      function observe_scrolling(element) {
+          if (isScrolledIntoView($('#{el}'))) {
+              #{ remote_function :update => el,
+                    :url => {:action => :get_nics, :id => node.id, :partial => :network_interfaces_ports },
+                    :loading => "show_spinner('nics')",
+                    :loaded => "hide_spinner('nics')"
+              }
+              // get rid of observe now
+              Event.stopObserving(window, 'scroll', observe_scrolling);
+          }
+      }
+      Event.observe(window, 'scroll', observe_scrolling);
+
+= hide_spinner('nics')
+= javascript_tag("Element.hide('hide_nics')")
+= render_tooltips(@tooltips) if ttflag

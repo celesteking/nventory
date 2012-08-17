@@ -15,4 +15,4 @@
 
 <div class="relationship"><p> <%= link_to 'Search', "#{nodes_path}?exact_status=#{CGI.escape(@status.name)}" %> for nodes with this status </p> </div>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

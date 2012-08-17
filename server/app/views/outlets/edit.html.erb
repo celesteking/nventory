@@ -1,3 +1,4 @@
 <%- @tooltips = [] %>
+<%#= render :partial => 'outlet', :locals => { :outlet => @outlet, :consumers => @consumers, :consumer_type => @consumer_type } %>
 <%= render :partial => 'shared/crud_edit_form', :locals => { :object => @outlet } %>
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

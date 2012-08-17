@@ -1,4 +1,6 @@
 module NodesHelper
+	include OutletsHelper
+
   def logins_descr
     "This is the number of logins calculated<br />" +
     " by the utilization metrics controller<br />" +

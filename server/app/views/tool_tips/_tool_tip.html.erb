@@ -16,4 +16,4 @@
         :success => "Element.hide('spinner_gif_id')",
         :url => { :action => :get_unused_model_attrs } ) %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -10,4 +10,4 @@
   <%= submit_tag "Assign" %> | <%= link_to_function 'Cancel', "Element.show('add_node_assignment_link');Element.hide('create_node_assignment')"%></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

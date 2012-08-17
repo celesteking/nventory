@@ -1,4 +1,4 @@
 <%- @tooltips = [] %>
 <%= render :partial => 'shared/version_table', :locals => { :master_object => @volume_drive_assignment} %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

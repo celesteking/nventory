@@ -12,4 +12,4 @@
 <p><strong><%= tooltip(Volume,:volume_server) %>:</strong> <br/><%= f.select :volume_server_id, @volume_servers, :include_blank => true %></p>
 <p><strong><%= tooltip(Volume,:description) %>:</strong> <br/><%= f.text_area :description, {"cols" => 60, "rows" => 4} %> </p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

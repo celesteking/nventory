@@ -1,6 +1,8 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   include TagsHelper
+  include HTMLHelper
+  include JSHelper
   
   # borrowed from Simply Restful (would rather not import the whole plugin) 
   def dom_id(record, prefix = nil) 
@@ -58,13 +60,25 @@ module ApplicationHelper
     # now create the tooltip javascript content
     tt = "<div id='" + field.to_s + increment + "_toolbox' style='display:none; padding: 15px; background-color: yellow'>" +
          linewrap_description +
-         "</div>\n" +
+         "</div>" +
          '<script type="text/javascript">' +
          "var my_tooltip = new Tooltip('" + field.to_s + increment + "_tooltag', '" + field.to_s + increment + "_toolbox')" +
-         "</script>\n"
+         "</script>"
     @tooltips << tt
 
     return span
+  end
+
+  # Renders tooltip array into string
+  def render_tooltips(tooltips)
+	  case tooltips
+		  when Array
+			  tooltips.join
+		  when String
+			  tooltips
+		  else
+			  raise ArgumentError
+	  end
   end
 
   def dashboard_pulldown_form_for_model(search_class, collection)

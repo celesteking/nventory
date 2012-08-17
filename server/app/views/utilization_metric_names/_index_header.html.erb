@@ -3,4 +3,4 @@
   <th nowrap="nowrap" width="5%">&nbsp;</th>
   <th <%= sort_td_class_helper "name" %> > <%= sort_link_helper "Name", "name" %></th>
 </tr>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

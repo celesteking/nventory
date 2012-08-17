@@ -9,4 +9,4 @@
   <th <%= sort_td_class_helper "operating_system" %> > <%= sort_link_helper "Operating System", "operating_system" %></th>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

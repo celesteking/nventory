@@ -10,4 +10,4 @@
   <%= submit_tag "Assign", :onclick => "$('virtual_assignment_parent_id').value = _node_id" %> | <%= link_to_function 'Cancel', "Element.show('add_virtual_assignment_link');Element.hide('create_virtual_assignment')"%></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

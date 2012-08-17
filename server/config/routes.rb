@@ -36,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :outlets,                           :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
   map.resources :node_rack_node_assignments,                                                                  :member => { :version_history => :get }
   map.resources :node_racks,                        :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
-  map.resources :racks, :controller=> "node_racks", :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
+  map.resources :racks, :controller=> 'node_racks', :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
   map.resources :volume_node_assignments,                                                                     :member => { :version_history => :get }
   map.resources :volume_drive_assignments,                                                                    :member => { :version_history => :get }
   map.resources :ip_address_network_port_assignments,                                                         :member => { :version_history => :get }
@@ -64,8 +64,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :racks, :controller => 'node_racks', :member => { :visualization => :get } 
   map.resources :datacenters, :member => { :visualization => :get } 
 
+  #map.resources :, :controller => :node_rack_node_assignments
   # The priority is based upon order of creation: first created -> highest priority.
-  
+  map.connect "/node_rack_node_assignments/:id",
+	  :controller => "node_rack_node_assignments",
+	  :action => "update"
+
   # Sample of regular route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action

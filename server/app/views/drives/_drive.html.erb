@@ -9,4 +9,4 @@
 <p><strong><%= tooltip(Drive,:size) %></strong> <br /> <%= f.text_field :size%></p>
 <p><strong><%= tooltip(Drive,:dev) %></strong> <br /> <%= f.text_field :dev%></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

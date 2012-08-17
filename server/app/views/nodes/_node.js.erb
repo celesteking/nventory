@@ -38,4 +38,4 @@
 <p><strong>Description:</strong> <br /><%= f.text_area :description, {"cols" => 60, "rows" => 4} %> </p>
 
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -21,4 +21,4 @@
 <%= link_to('Delete', volume_node_assignment_path(@volume_node_assignment), :confirm => 'Are you sure?', :method => :delete) if allow_perm(@volume_node_assignment, ['destroyer']) %>
 <%= render :partial => 'shared/version_information', :locals => { :object => @volume_node_assignment} %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

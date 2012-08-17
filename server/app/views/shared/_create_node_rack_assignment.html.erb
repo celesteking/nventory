@@ -10,4 +10,4 @@
   <%= submit_tag "Assign", :onclick => "$('datacenter_node_rack_assignment_id').value = _datacenter_id" %> | <%= link_to_function 'Cancel', "Element.show('add_node_rack_assignment_link');Element.hide('create_node_rack_assignment');Element.hide('new_node_rack_id')"%></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

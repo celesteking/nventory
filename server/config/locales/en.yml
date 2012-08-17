@@ -1,0 +1,6 @@
+en:
+  activerecord:
+    attributes:
+      node_rack_node_assignment:
+        upos: "U position"
+

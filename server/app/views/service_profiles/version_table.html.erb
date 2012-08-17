@@ -1,4 +1,4 @@
 <%- @tooltips = [] %>
 <%= render :partial => 'shared/version_table', :locals => { :master_object => @service_profile } %>
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

@@ -74,7 +74,7 @@ class NodeRackNodeAssignmentsController < ApplicationController
         format.xml  { head :created, :location => node_rack_node_assignment_url(@node_rack_node_assignment) }
       else
         format.html { render :action => "new" }
-        format.js   { render(:update) { |page| page.alert(@node_rack_node_assignment.errors.full_messages) } }
+        format.js   { render(:update, :status => :bad_request) { |page| page.alert(@node_rack_node_assignment.errors.full_messages) } }
         format.xml  { render :xml => @node_rack_node_assignment.errors.to_xml, :status => :unprocessable_entity }
       end
     end
@@ -83,19 +83,20 @@ class NodeRackNodeAssignmentsController < ApplicationController
   # PUT /node_rack_node_assignments/1
   # PUT /node_rack_node_assignments/1.xml
   def update
-    @node_rack_node_assignment = @object
-    node_rack = @node_rack_node_assignment.node_rack
-    return unless filter_perms(@auth,node_rack,'updater')
-    node = @node_rack_node_assignment.node
-    return unless filter_perms(@auth,node,'updater')
+	  @node_rack_node_assignment = @object
+	  return unless filter_perms(@auth, @node_rack_node_assignment,'updater')
 
     respond_to do |format|
       if @node_rack_node_assignment.update_attributes(params[:node_rack_node_assignment])
         flash[:notice] = 'NodeRackNodeAssignment was successfully updated.'
-        format.html { redirect_to node_rack_node_assignment_url(@node_rack_node_assignment) }
+        format.js do
+	        render :update do |page|
+	          page.replace_html 'node_rack_node_assignments', :partial => 'node_racks/node_assignments', :locals => { :node_rack => @node_rack_node_assignment.node_rack }
+	        end
+        end
         format.xml  { head :ok }
       else
-        format.html { render :action => "edit" }
+	      format.js { render(:update, :status => :bad_request) { |page| page.alert(@node_rack_node_assignment.errors.full_messages.join("\n")) } }
         format.xml  { render :xml => @node_rack_node_assignment.errors.to_xml, :status => :unprocessable_entity }
       end
     end

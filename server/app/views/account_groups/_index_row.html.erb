@@ -10,4 +10,4 @@
     <td><%= index_row.accounts.count %></th>
   <%- end -%>
 </tr>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

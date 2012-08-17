@@ -2,4 +2,4 @@
 <%= render :partial => 'shared/search', :locals => { :object => @utilization_metric_name, :exclude => @exclude } %>
 
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

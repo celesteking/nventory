@@ -3,4 +3,4 @@
 
 <p><strong><%= tooltip(Status,:description) %></strong> <br /> <%= f.text_area :description, {"cols" => 30, "rows" => 4}  %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -12,4 +12,4 @@
   <td><%= index_row.nmap_last_seen_at.to_formatted_s(:long) if index_row.nmap_last_seen_at %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

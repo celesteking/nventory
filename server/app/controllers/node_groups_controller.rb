@@ -285,7 +285,7 @@ class NodeGroupsController < ApplicationController
   def graph_node_groups
     @node_group = NodeGroup.find(params[:id])
     @graphobjs = {}
-    @graph = GraphViz::new( "G", "output" => "png" )
+    @graph = GraphViz::new( "G")
     @dots = {}
     @graphobjs[@node_group.name.gsub(/-/,'')] = @graph.add_node(@node_group.name.gsub(/-/,''), :label => "#{@node_group.name}", :shape => 'rectangle', :color => "yellow", :style => "filled")
     # walk the node_group's parents node_group tree
@@ -301,8 +301,9 @@ class NodeGroupsController < ApplicationController
     end
     image_type = MyConfig.visualization.images.mtype
     image_dir = File.join("public", MyConfig.visualization.images.dir)
-    @graph.output( :output => image_type,
-                   :file => "#{image_dir}/#{@node_group.name}_node_grouptree.#{image_type}" )
+    @graph.output(
+		    image_type => "#{image_dir}/#{@node_group.name}_node_grouptree.#{image_type}"
+    )
     respond_to do |format|
       format.html # graph_node_groups.html.erb
     end

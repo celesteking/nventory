@@ -9,4 +9,4 @@
   <td><%= link_to index_row.graffitiable.name, self.send(index_row.graffitiable_type.underscore + '_path', index_row.graffitiable) %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

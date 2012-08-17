@@ -9,4 +9,4 @@
   <td><%= link_to index_row.source_type, self.send("#{index_row.source_type.to_s.tableize}_path") %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

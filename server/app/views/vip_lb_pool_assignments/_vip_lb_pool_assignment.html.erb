@@ -3,4 +3,4 @@
 <p><strong><%= tooltip(VipLbPoolAssignment,:lb_pool) %>:</strong> <br /><%= f.select :lb_pool_id, LbPool.def_scope.find(:all, :order => 'name').collect { |n| [ n.name, n.id ] }, { :include_blank => true } %></p>
 <p><strong><%= tooltip(VipLbPoolAssignment,:assigned_at) %>:</strong> <br/><%= f.datetime_select :assigned_at %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

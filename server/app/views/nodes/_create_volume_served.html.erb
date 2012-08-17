@@ -8,4 +8,4 @@
   <%= submit_tag "Create", :onclick => "$('volume_volume_server_id').value = _node_id" %> | <%= link_to_function 'Cancel', "Element.show('add_volume_served_link');Element.hide('create_volume_served')"%></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -4,4 +4,4 @@
   <p><strong><%= tooltip(NodeGroup, :graffiti_list,'Graffitis') %>: </strong>
     <font size=1><%= list.join(', ') %></font>
   </p>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

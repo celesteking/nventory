@@ -1,12 +1,5 @@
-<%- unless @tooltips ; then @tooltips = []; ttflag = true ; else; ttflag = false ;  end %>
-<%- if @outlet.consumer.nil? -%>
-  n/a
+<%- if consumer.nil? -%>
+  <label title="Nothing connected">&#8211;</label>
 <%- else -%>
-  <%- if outlet.consumer_type == 'Node' -%>
-    <%= link_to "#{outlet.consumer.name}", outlet.consumer %>
-  <%- else -%>
-    <%= link_to "#{outlet.consumer.node.name}:#{outlet.consumer.name}", outlet.consumer %>
-  <%- end -%>
+  <%= render :partial => 'outlets/outlet_consumer_link', :locals => { :consumer => consumer } %>
 <%- end -%>
-
-<%= @tooltips if ttflag %>

@@ -7,4 +7,4 @@
   <td><%= link_to index_row.network, self.send(index_row.class.to_s.underscore + '_path', index_row) %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

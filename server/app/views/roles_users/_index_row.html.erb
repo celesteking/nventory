@@ -17,4 +17,4 @@
   <%- end -%>
   <td><%= index_row.created_at %></td>
 </tr>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

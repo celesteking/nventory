@@ -4,4 +4,4 @@
 <p><strong><%= tooltip(SupportContract,:link) %></strong> <br /> <%= f.text_field :link %></p>
 <p><strong><%= tooltip(SupportContract,:expiration) %></strong> <br /> <%= f.datetime_select(:expiration,:include_blank => true) %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

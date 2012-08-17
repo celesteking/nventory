@@ -7,4 +7,4 @@
   <td><%= have_not_updated_row.updated_at.to_s %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

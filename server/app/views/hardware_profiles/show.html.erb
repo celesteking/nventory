@@ -35,4 +35,4 @@
 
 <div class="relationship"><p><%= link_to 'Search', "#{nodes_path}?exact_hardware_profile=#{CGI.escape(@hardware_profile.name)}" %> for nodes with this hardware profile</p></div> 
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

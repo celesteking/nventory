@@ -19,4 +19,4 @@
 
 <%= hidden_field(:outlet, :consumer_type, :value => @consumer_type) %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

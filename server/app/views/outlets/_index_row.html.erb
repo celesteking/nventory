@@ -17,4 +17,4 @@
   <td><%= index_row.consumer_type.nil? ? "Unknown" : index_row.consumer_type %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

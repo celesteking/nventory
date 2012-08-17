@@ -13,4 +13,4 @@
   <td><%= index_row.operating_system.nil? ? '&nbsp;' : index_row.operating_system.name %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -53,4 +53,4 @@
   <p><%= button_to_remote 'Grant Permission', { :url => {:action => :get_roles_accounts, :refcontroller => controller.controller_name, :refid => refid}, :loading => "Element.show('add_perm_spinner')", :loaded => "Element.hide('add_perm_spinner')" } %></p>
 </div>
 <%= javascript_tag "Element.hide('add_perm_spinner')" %>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

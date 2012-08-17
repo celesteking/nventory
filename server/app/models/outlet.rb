@@ -15,6 +15,8 @@ class Outlet < ActiveRecord::Base
   validates_uniqueness_of :consumer_id, :scope => [:producer_id, :consumer_type], :allow_nil => true, :allow_blank => true
   validates_presence_of :name, :producer_id
 
+  validate :consumer_different_from_producer, :if => :consumer
+
   def before_create
     validates_producer
     validates_consumer_type if consumer
@@ -22,9 +24,6 @@ class Outlet < ActiveRecord::Base
 
   def before_update
     validates_consumer_type if consumer
-  end
-
-  def validate 
   end
 
   def validates_consumer_type
@@ -73,6 +72,13 @@ class Outlet < ActiveRecord::Base
       errors.add(:producer_id, Outlet.outlet_types[producer.hardware_profile.outlet_type].tableize.humanize.downcase.pluralize + " has met or exceeded max capacity" )
       return false
     end) unless producer.hardware_profile.outlet_count == 0
+  end
+
+  def consumer_different_from_producer
+	  if consumer == producer
+		  errors.add(:consumer, "is the same as producer, which is not allowed")
+	  end
+	  false
   end
   
   def self.default_search_attribute

@@ -33,4 +33,4 @@
   <p>There aren't any <%= tooltip(nil,:nodes,'Nodes',nodes_tooltip) %> belonging to this Load Balance Pool.</p>
 <%- end -%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

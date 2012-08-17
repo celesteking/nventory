@@ -5,4 +5,4 @@
   <td><%= noapp.node_groups.collect(&:name).join(',') %></td>
 </tr>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

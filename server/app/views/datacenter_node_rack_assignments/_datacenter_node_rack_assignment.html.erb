@@ -5,4 +5,4 @@
 
 <p><strong><%= tooltip(DatacenterNodeRackAssignnment,:assigned_at) %>:</strong> <br/><%= f.datetime_select :assigned_at %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

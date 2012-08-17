@@ -386,3 +386,24 @@ table.network_summary caption
 
 /* Hide all HRs, they are only meant for print, or non CSS browsers */
 hr { display: none; }
+
+A.hidden_edit {
+    text-decoration: none;
+    border-bottom: 1px #808080 dotted;
+    color: inherit;
+}
+
+A.hidden_edit:hover {
+    color: #3e64c7;
+}
+
+/* Outlet connectors */
+.consumer_name {
+    color: #004814;
+    font-weight: bold;
+}
+
+.lazyload_placeholder {
+    width: 100%;
+    height: 30px;
+}

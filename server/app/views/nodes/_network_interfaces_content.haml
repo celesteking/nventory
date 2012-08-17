@@ -1,0 +1,20 @@
+%p
+  - if node.network_interfaces.length > 0
+    %ul
+      - node.network_interfaces.each do |nic|
+        %li
+          = link_to nic.name, network_interface_url(nic)
+          - if nic.interface_type.to_s == "Ethernet" && nic.switch_port
+            %snap =>
+            = link_to "port: #{nic.switch_port.name} (#{nic.switch_port.producer.name})" , nic.switch_port
+          %ul
+            - nic.ip_addresses.each do |ip|
+              %li
+                = link_to ip.address, ip_address_url(ip)
+                %ul
+                  - ip.ip_address_network_port_assignments.each do |ipa|
+                    %li
+                      = link_to "#{ipa.network_port.number}/#{ipa.network_port.protocol}", ipa.network_port
+                      = (" (#{ipa.apps})" unless ipa.apps.empty?) if ipa.apps
+  - else
+    %p This node does not have any network interfaces defined.

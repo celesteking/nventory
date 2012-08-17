@@ -25,7 +25,7 @@ class CreateNodeGroupVipAssignments < ActiveRecord::Migration
                    :description => 'Load Balancer transparently redirects incoming HTTP requests from Web clients to a set of Web servers.'
     ToolTip.create :model => 'VipLbPoolAssignment',
                    :attr=> 'vip',
-                   :description => 'Virtual IP – an IP address that is shared among multiple domain names or multiple servers. A virtual IP address eliminates a host’s dependency upon individual network interfaces. Incoming packets are sent to the system’s VIP address, but all packets travel through the real network interfaces.
+                   :description => 'Virtual IP - an IP address that is shared among multiple domain names or multiple servers. A virtual IP address eliminates a host\'s dependency upon individual network interfaces. Incoming packets are sent to the system\'s VIP address, but all packets travel through the real network interfaces.
 
 A VIP can belong to a load balancing device such as F5 BigIP or can be a clustered VIP such as that used in RedHat Cluster or Windows Load Balancing Service.'
   end

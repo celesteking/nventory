@@ -18,4 +18,4 @@
   <%= " | #{link_to_function('Cancel', "Element.show('add_parent_link');Element.hide('create_parent_assignment'")}" %></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

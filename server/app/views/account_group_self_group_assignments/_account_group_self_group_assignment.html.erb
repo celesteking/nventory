@@ -3,4 +3,4 @@
 <p><strong><%= tooltip(AccountGroupSelfGroupAssignment,:self_group,'Account') %>:</strong> <br /><%= f.select :self_group_id, AccountGroup.self_scope.find(:all, :order => 'name').collect { |n| [ n.name, n.id ] }, { :include_blank => true } %></p>
 <p><strong><%= tooltip(AccountGroupSelfGroupAssignment,:assigned_at) %>:</strong> <br/><%= f.datetime_select :assigned_at %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -12,4 +12,4 @@ elsif request.env["HTTP_REFERER"].include? "node_racks"
   page.show 'add_datacenter_assignment_link'
 end
 
-<%= @tooltips %>
+<%= render_tooltips(@tooltips) %>

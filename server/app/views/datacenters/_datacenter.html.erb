@@ -13,4 +13,4 @@
 
 <p><strong><%= tooltip(Datacenter,:shipping_address) %>:</strong> <br/><%= f.text_area :shipping_address, {"cols" => 40, "rows" => 6} %></p>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -8,4 +8,4 @@
   <%= submit_tag "Assign", :onclick => "$('name_alias_node_id').value = _node_id" %> | <%= link_to_function 'Cancel', "Element.show('add_name_alias_link');Element.hide('create_name_alias')"%></p>
 <% end %>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

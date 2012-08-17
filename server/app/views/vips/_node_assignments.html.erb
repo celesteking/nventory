@@ -33,4 +33,4 @@
   <p>No <%= tooltip(nil,:nodes,'Nodes',nodes_tooltip) %> belong to this <%= tooltip(VipLbPoolAssignment,:vip) %>.</p>
 <%- end -%>
 
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

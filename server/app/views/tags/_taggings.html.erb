@@ -37,4 +37,4 @@
 </div>
 <%= javascript_tag "Element.hide('create_tagging')" %>
 <%= javascript_tag "Element.hide('add_tagging_spinner')" %>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>

@@ -9,4 +9,4 @@
   <td><%= h(index_row.to.name) %></td>
   <td><%= h(index_row.assigned_at.to_formatted_s(:long)) %></td>
 </tr>
-<%= @tooltips if ttflag %>
+<%= render_tooltips(@tooltips) if ttflag %>
