@@ -21,6 +21,9 @@
   </p>
 
   <p>
+    <strong>Rack position: </strong>
+    <label class="rack_position_formatted" title="Click to select" onclick="selectElementContents(this)"><%=  format_node_location(@node).compact.join(' – ').tap{|z| z.insert(0, 'U') unless z.empty?} %></label>
+    <br />
     <strong><%= tooltip(@node.class, :status) %>:</strong> <%= link_to h(@node.status.name), status_url(@node.status) %>
     <br/>
     <strong><%= tooltip(@node.class, :contact) %>:</strong>
@@ -31,7 +34,7 @@
         <%- end -%>
     <%- end -%>
     <%= contacts.join(', ') unless contacts.nil? || contacts.empty? %>
-    </br>
+  </p>
 
   <p><strong><%= tooltip(@node.class, :config_mgmt_tag, 'Configuration Management Tag') %>:
     <font color=brown> <%= @node.config_mgmt_tag %></font></strong></p>
@@ -49,11 +52,14 @@
   <p>
     <!-- VM? -->
     <%- if (@node.virtual_guest? || @node.virtual_host? || (!@node.virtualarch.nil? && !@node.virtualarch.empty?)) -%>
-        <%- if @node.virtualarch.nil? -%>
-            <%= "<strong><font color=purple>" + tooltip(@node.class, :virtualarch, 'Virtual Architecture') +":</strong> Unknown</font><br />" %>
-        <%- else -%>
-            <%= "<strong><font color=purple>" + tooltip(@node.class, :virtualarch, 'Virtual Architecture') + ":</strong> #{@node.virtualarch.capitalize}</font><br />" %>
-        <%- end -%>
+        <font color=purple>
+          <strong>
+            <%= tooltip(@node.class, :virtualarch, 'Virtual Architecture') %>
+            <span>:</span>
+          </strong>
+          <%=  @node.virtualarch || 'Unknown' %>
+        </font>
+        <br />
         <%- unless (@node.virtual_guest? || @node.virtual_host?) -%>
             <%= "<strong><font color=purple>" + tooltip(@node.class, :virtualmode, 'Virtual Mode') + ":</strong> Unknown</font><br />" %>
         <%- else -%>

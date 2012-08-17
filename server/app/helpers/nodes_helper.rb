@@ -7,6 +7,7 @@ module NodesHelper
     " by registering when the node does its cli registration<br />" +
     " daily and parses through sar<br />" 
   end
+
   def allow_add_ngna
   end
 
@@ -35,5 +36,19 @@ module NodesHelper
       first <=> last
     end
   end
+
+	def format_node_location(node)
+		if nrna = node.node_rack_node_assignment
+			node_upos = nrna.upos
+			if nr = nrna.node_rack
+				rack_name = nr.name
+				if dc = nr.datacenter
+					dc_name = dc.name
+				end
+			end
+		end
+
+		[node_upos, rack_name, dc_name]
+	end
 
 end

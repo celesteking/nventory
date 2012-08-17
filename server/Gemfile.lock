@@ -25,7 +25,9 @@ GEM
     facter (1.6.10)
     fast_xs (0.8.0)
     fastercsv (1.5.5)
+    haml (3.1.7)
     hpricot (0.8.6)
+    is_graffitiable (0.1.4)
     memcache-client (1.8.5)
     mysql (2.8.1)
     pdf-writer (1.1.8)
@@ -60,7 +62,9 @@ DEPENDENCIES
   facter
   fast_xs
   fastercsv
+  haml
   hpricot
+  is_graffitiable
   mysql
   rails (~> 2.3.14)
   ruby-graphviz

@@ -6,7 +6,7 @@
 <h1><%= tooltip(Node,:virtual_host) %></h1>
 
 <p><strong><%= tooltip(Node,:virtual_host) %>:</strong> <%= link_to @virtual_assignment.virtual_host.name, node_path(@virtual_assignment.virtual_host) %><br />
-<strong><%= tooltip(Node,:virtual_guest) %>:</strong> <%= link_to @virtual_assignment.virtual_guest.name, node_path(@virtual_assignment.virtual_host) %><br />
+<strong><%= tooltip(Node,:virtual_guest) %>:</strong> <%= link_to @virtual_assignment.virtual_guest.name, node_path(@virtual_assignment.virtual_guest) %><br />
 <strong><%= tooltip(Node,:assigned_at) %>:</strong> <%= h(@virtual_assignment.assigned_at.to_formatted_s(:long)) %></p>
 
 <p class="metadata"><strong><%= tooltip(Node,:created_at) %>:</strong> <%= h(@virtual_assignment.created_at) %><br />

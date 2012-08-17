@@ -5,6 +5,8 @@ gem 'rails', '~> 2.3.14'
 gem 'RedCloth', '~> 4.2.9'
 gem 'ruby-net-ldap', '~> 0.0.4'
 gem 'ruport'
+gem 'haml'
+gem 'is_graffitiable'
 
 #acts_as_reportable
 
