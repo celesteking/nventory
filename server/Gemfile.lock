@@ -12,6 +12,8 @@ GEM
     activeresource (2.3.14)
       activesupport (= 2.3.14)
     activesupport (2.3.14)
+    acts_as_reportable (1.1.1)
+      ruport (>= 1.6.0)
     color (1.4.1)
     columnize (0.3.6)
     debugger (1.2.0)
@@ -59,6 +61,7 @@ PLATFORMS
 
 DEPENDENCIES
   RedCloth (~> 4.2.9)
+  acts_as_reportable (~> 1.1.1)
   debugger
   facter
   fast_xs
