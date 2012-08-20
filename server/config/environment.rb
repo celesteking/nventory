@@ -123,6 +123,7 @@ require 'net/http'
 require 'hpricot'
 require 'graphviz'
 require 'redcloth'
+require 'is_graffitiable'
 # Needed for offline background jobs (starling/workling)
 
 ######### TO BE DEPRECATED #########
