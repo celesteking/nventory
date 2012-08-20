@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/ludicast/yaml_db.git
+  revision: d518a1a5d016bfdfa257730db14db5fdd6b35df4
+  branch: Rails2
+  specs:
+    yaml_db (0.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -77,3 +84,4 @@ DEPENDENCIES
   starling
   will_paginate (~> 2.3)
   workling
+  yaml_db!

@@ -1,8 +1,8 @@
 development:
   adapter: mysql
   database: nventory
-  username: root
-  password: ''
+  username: nventory
+  password: assword
   host: 127.0.0.1
   port: 3306
 

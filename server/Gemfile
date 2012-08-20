@@ -28,5 +28,6 @@ gem 'workling'
 
 group :development do
 	gem 'debugger'
+	gem 'yaml_db', :git => 'https://github.com/ludicast/yaml_db.git', :branch => 'Rails2'
 end
 
