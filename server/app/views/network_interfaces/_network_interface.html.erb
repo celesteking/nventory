@@ -7,6 +7,12 @@
 
 <p><strong><%= tooltip(NetworkInterface,:physical) %></strong> <br /> <%= f.check_box :physical %></p>
 
+<p>
+  <strong><%= tooltip(NetworkInterface,:network_type) %></strong>
+  <br />
+  <%= f.select 'network_interface_type_id', NetworkInterfaceType.all.collect {|n| [n.name, n.id]}.sort  %>
+</p>
+
 <p><strong><%= tooltip(NetworkInterface,:hardware_address) %></strong> <br /> <%= f.text_field :hardware_address %></p>
 
 <p><strong><%= tooltip(NetworkInterface,:up) %></strong> <br /> <%= f.check_box :up %></p>

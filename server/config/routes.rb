@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+	map.resources :network_interface_types,                                                                     :member => { :version_history => :get }
+
   map.resources :accounts,                          :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
   map.resources :account_groups,                    :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }
   map.resources :audits  ,                          :collection => { :field_names => :get, :search => :get }, :member => { :version_history => :get }

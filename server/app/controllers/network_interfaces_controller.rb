@@ -160,5 +160,13 @@ class NetworkInterfacesController < ApplicationController
     @network_interface = NetworkInterface.find(:first)
     render :action => 'search'
   end
-  
+
+	def get_ifaces_for_node
+		iface_selected = params[:network_interface][:id].to_i
+		node = Node.find(params[:node][:id])
+
+		ifaces = node.network_interfaces
+
+		render :partial => 'interfaces_options', :locals => {:ifaces => ifaces, :node => node, :selected => iface_selected}
+	end
 end

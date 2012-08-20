@@ -39,12 +39,9 @@
   <p><strong><%= tooltip(@node.class, :config_mgmt_tag, 'Configuration Management Tag') %>:
     <font color=brown> <%= @node.config_mgmt_tag %></font></strong></p>
 
-  <p>
-    <strong><%= tooltip(@node.class, :logins, 'Logins Today') %>:</strong> <%= @logins_today %><br/>
-    <strong><%= tooltip(@node.class, :cpu_percent, 'CPU % (Today)') %>:</strong> <%= @percent_cpu_today %><br/>
-  </p>
-
+  <% if @node.expiration -%>
   <p><strong><%= tooltip(@node.class, :expiration) %>:</strong> <%= @node.expiration %><br/>
+  <% end -%>
 
     <strong><%= tooltip(@node.class, :hardware_profile) %></strong> <%= link_to h(@node.hardware_profile.name), hardware_profile_url(@node.hardware_profile) %>
     <br/></p>

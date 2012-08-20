@@ -51,6 +51,7 @@ GEM
       eventmachine (>= 0.12.0)
       memcache-client (>= 1.7.0)
     transaction-simple (1.4.0.2)
+    will_paginate (2.3.16)
     workling (0.4.9.9)
 
 PLATFORMS
@@ -71,4 +72,5 @@ DEPENDENCIES
   ruby-net-ldap (~> 0.0.4)
   ruport
   starling
+  will_paginate (~> 2.3)
   workling

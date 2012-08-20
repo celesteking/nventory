@@ -8,6 +8,7 @@ class NetworkInterface < ActiveRecord::Base
   acts_as_commentable
 
   belongs_to :node
+  belongs_to :network_interface_type
 
   has_many :ip_addresses, :dependent => :destroy
   # This creates a polymorphic association to Outlet model which can be shared by other interface types such as power or console
@@ -23,9 +24,10 @@ class NetworkInterface < ActiveRecord::Base
   # message back to the user than if the error is caught at the database
   # layer.
   validates_presence_of :name
+  validates_presence_of :node
 
   def self.default_search_attribute
     'name'
   end
- 
+
 end

@@ -3,7 +3,24 @@
 
 <p><strong><%= tooltip(IpAddress,:address_type) %>:</strong> <em>*</em> <br /><%= f.select :address_type, $address_types%></p>
 
-<p><strong><%= tooltip(IpAddress,:network_interface) %></strong> <br /> <%= select 'ip_address', 'network_interface_id', NetworkInterface.all.collect { |n| ["#{n.node.name} #{n.name}", n.id] }.sort,:include_blank => true %></p>
+<p><strong><%= tooltip(IpAddress,:network_interface) %></strong>
+  <br />
+  <%= select 'node', 'id',
+            NetworkInterface.find(:all, :include => :node).uniq{|e| e.node.id }.collect { |n| ["#{n.node.name}", n.node.id] }.sort,
+            :include_blank => true, :selected => @ip_address.network_interface.node_id
+  %>
+  <%= select_tag 'network_interface[id]', nil, :id => 'network_interface_id' %>
+
+  <%
+     opts_for_ajax = {
+         :update => 'network_interface_id',
+         :url => { :controller => :network_interfaces, :action => :get_ifaces_for_node },
+         :with => "'network_interface[id]=#{@ip_address.network_interface_id}&node[id]=' + $(node_id).value"
+     }
+  %>
+  <%= observe_field('node_id', opts_for_ajax) -%>
+  <%= javascript_tag remote_function opts_for_ajax  %>
+</p>
 
 <p><strong><%= tooltip(IpAddress,:netmask) %></strong> <br /> <%= f.text_field :netmask %></p>
 

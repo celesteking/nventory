@@ -8,6 +8,8 @@ gem 'ruport'
 gem 'haml'
 gem 'is_graffitiable'
 
+gem 'will_paginate', '~> 2.3'
+
 #acts_as_reportable
 
 gem 'starling'

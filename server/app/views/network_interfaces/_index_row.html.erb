@@ -4,7 +4,16 @@
 <%- if allow_perm(index_row, ['updater']) %>
  / <%= link_to 'Edit', self.send('edit_' + index_row.class.to_s.underscore + '_path', index_row) %>
 <%- end -%></td>
-  <td><%= link_to index_row.name, self.send(index_row.class.to_s.underscore + '_path', index_row) %></td>
+  <td>
+    <%= link_to index_row.node.name, node_path(index_row.node) %>
+  </td>
+  <td>
+    <%= link_to index_row.name, self.send(index_row.class.to_s.underscore + '_path', index_row) %>
+  </td>
+  <td>
+    <%= link_to index_row.network_interface_type.name, network_interface_path(index_row.network_interface_type) if index_row.network_interface_type %>
+  </td>
+  <td>&nbsp;</td>
 </tr>
 
 <%= render_tooltips(@tooltips) if ttflag %>

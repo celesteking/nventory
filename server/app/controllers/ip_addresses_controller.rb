@@ -76,6 +76,9 @@ class IpAddressesController < ApplicationController
       params.delete(:network_ports)
     end
 
+    interface_id = params[:network_interface][:id]
+    params[:ip_address].update(:network_interface_id => interface_id)
+
     respond_to do |format|
       if @ip_address.update_attributes(params[:ip_address])
         flash[:notice] = 'IpAddress was successfully updated.'

@@ -216,6 +216,15 @@ table.arattributes th { text-align: right; }
 
 .arversion_date { color: #999; }
 
+/* minimize column*/
+th.minimize {
+    width: 1px; white-space: nowrap;
+}
+
+/* maximize column */
+th.maximize {
+    width: 100%;
+}
 
 .record_view
 {

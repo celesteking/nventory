@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120808132818) do
+ActiveRecord::Schema.define(:version => 20120819220215) do
 
   create_table "account_group_account_group_assignments", :force => true do |t|
     t.integer  "parent_id",   :null => false
@@ -296,8 +296,16 @@ ActiveRecord::Schema.define(:version => 20120808132818) do
   add_index "name_aliases", ["source_type"], :name => "index_name_aliases_on_source_type"
   add_index "name_aliases", ["updated_at"], :name => "index_name_aliases_on_updated_at"
 
+  create_table "network_interface_types", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "l2_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "network_interfaces", :force => true do |t|
-    t.string   "name",             :null => false
+    t.string   "name",                      :null => false
     t.string   "interface_type"
     t.boolean  "physical"
     t.string   "hardware_address"
@@ -309,6 +317,7 @@ ActiveRecord::Schema.define(:version => 20120808132818) do
     t.integer  "node_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "network_interface_type_id"
   end
 
   add_index "network_interfaces", ["name"], :name => "index_network_interfaces_on_name"

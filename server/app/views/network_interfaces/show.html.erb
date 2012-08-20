@@ -9,6 +9,9 @@
 
 <p><strong><%= tooltip(NetworkInterface,:interface_type) %>:</strong> <%= h(@network_interface.interface_type) %></p>
 <p><strong><%= tooltip(NetworkInterface,:physical) %>:</strong> <%= h(@network_interface.physical) %></p>
+<p><strong><%= tooltip(NetworkInterface,:network_type) %>:</strong>
+  <%= h(@network_interface.network_interface_type.name) if @network_interface.network_interface_type%>
+</p>
 <p><strong><%= tooltip(NetworkInterface,:hardware_address) %>:</strong> <%= h(@network_interface.hardware_address) %></p>
 <p><strong><%= tooltip(NetworkInterface,:up) %>:</strong> <%= h(@network_interface.up) %></p>
 <p><strong><%= tooltip(NetworkInterface,:link) %>:</strong> <%= h(@network_interface.link) %></p>
