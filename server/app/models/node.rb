@@ -389,5 +389,23 @@ class Node < ActiveRecord::Base
     return nil if hardware_profile.outlet_type && hardware_profile.outlet_type == 'Blade'
     result = self.consumed_outlets.find(:first,:include => {:producer => {:hardware_profile =>{}} } , :conditions => "hardware_profiles.outlet_type = 'Blade'")
   end
-  
+
+  # "propagated" attributes
+	%w(processor_model processor_speed processor_count processor_socket_count processor_manufacturer).each do |attr_name|
+		define_method attr_name do
+			read_attr_from_assoc(hardware_profile, attr_name)
+		end
+	end
+
+  # "propagated" attributes, modified nameds
+	define_method 'os_memory' do
+		read_attr_from_assoc(hardware_profile, 'os_memory', 'memory')
+	end
+
+	private
+	def read_attr_from_assoc(assoc, attr_name, assoc_attr_name = attr_name)
+		mine = read_attribute(attr_name)
+		return mine unless mine.blank?
+		assoc.read_attribute(assoc_attr_name)
+	end
 end
